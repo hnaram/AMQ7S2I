@@ -126,7 +126,9 @@ under the License.
             <global-max-size>100Mb</global-max-size>
 
       -->
-
+    <connectors>
+        <connector name="dc2-connector">tcp://broker-default-amq-tcp:61616</connector>
+    </connectors>
       <acceptors>
 
          <!-- useEpoll means: it will use Netty epoll if you are on a system (Linux) that supports it -->
@@ -154,7 +156,19 @@ under the License.
 
       </acceptors>
 
-
+ <bridges>
+        <bridge name="bridge.fis.edm-ref-org.epo-arch">
+            <queue-name>fis.edm-ref-org.epo-arch.replica</queue-name>
+            <forwarding-address>fis.edm-ref-org.mbp-ref-staging.fis.mbp-ref.org.mbp-ref-staging</forwarding-address>
+            <failover-on-server-shutdown>true</failover-on-server-shutdown>
+            <user>${AMQ_USER}</user>
+            <password>${AMQ_PASSWORD}</password>
+            <static-connectors>
+                <connector-ref>dc2-connector</connector-ref>
+            </static-connectors>
+        </bridge>
+    </bridges>
+     
       <security-settings>
          <security-setting match="#">
             <permission type="createNonDurableQueue" roles="admin"/>
@@ -203,6 +217,11 @@ under the License.
       </address-settings>
 
       <addresses>
+      <address name="fis.edm-ref-org.epo-arch.replica">
+        <anycast>
+          <queue name="fis.edm-ref-org.epo-arch.replica" />
+        </anycast>
+      </address>
          <address name="DLQ">
             <anycast>
                <queue name="DLQ" />
