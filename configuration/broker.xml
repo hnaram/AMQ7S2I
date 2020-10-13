@@ -40,13 +40,13 @@ under the License.
        -->
       <journal-type>NIO</journal-type>
 
-      <paging-directory>data/paging</paging-directory>
+      <paging-directory>/opt/amq/data/paging</paging-directory>
 
-      <bindings-directory>data/bindings</bindings-directory>
+      <bindings-directory>/opt/amq/data/bindings</bindings-directory>
 
-      <journal-directory>data/journal</journal-directory>
+      <journal-directory>/opt/amq/data/journal</journal-directory>
 
-      <large-messages-directory>data/large-messages</large-messages-directory>
+      <large-messages-directory>/opt/amq/data/large-messages</large-messages-directory>
 
       <journal-datasync>true</journal-datasync>
 
